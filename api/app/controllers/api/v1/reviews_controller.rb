@@ -5,17 +5,26 @@ module Api
       ERROR = '500';
 
       def create
-        review = Review.new(review_params)
+        review = airline.reviews.new(review_params)
         if review.save
-          render json: { status: SUCCESS, data: review }
+          render json: to_json(review)
         else
-          render json: { status: ERROR, data: review.errors }
+          render json: { error: review.errors.messages }, status: 422
         end
       end
 
-      def review_params
-        params.require(:review).permit(:title, :description, :score, :airline_id)
-      end
+      private
+        def airline
+          @airline ||= Airline.find(params[:airline_id])
+        end
+
+        def review_params
+          params.require(:review).permit(:title, :description, :score, :airline_id)
+        end
+
+        def to_json(data)
+          ReviewSerializer.new(data).serialized_json
+        end
     end
   end
 end

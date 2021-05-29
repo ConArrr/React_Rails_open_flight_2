@@ -7,45 +7,54 @@ module Api
 
       def index
         airlines = Airline.all
-        render json: { status: SUCCESS, data: airlines }
+        render json: to_json(airlines)
       end
 
       def show
-        render json: { status: SUCCESS, data: @airline }
+        render json: to_json(@airline)
       end
 
       def create
         airline = Airline.new(airline_params)
         if airline.save
-          render json: { status: SUCCESS, data: airline }
+          render json: to_json(airline)
         else
-          render json: { status: ERROR, data: airline.errors }
+          render json: { error: airline.errors.messages }, status: 422
         end
       end
 
       def update
         if @airline.update(airline_params)
-          render json: { status: SUCCESS, data: @airline }
+          render json: to_json(@airline)
         else
-          render json: { status: ERROR, data: @airline.errors }
+          render json: { error: @airline.errors.messages }, status: 422
         end
       end
 
       def destroy
         if @airline.destroy
-          render json: { status: SUCCESS, data: 'Deleted' }
+          head :no_content
         else
-          render json: { status: ERROR, data: @airline.errors }
+          render json: { error: @airline.errors.messages }, status: 422
         end
       end
 
-      def set_airline
-        @airline = Airline.find_by(slug: params[:slug])
-      end
+      private
+        def set_airline
+          @airline = Airline.find_by(slug: params[:slug])
+        end
 
-      def airline_params
-        params.require(:airline).permit(:name, :image_url)
-      end
+        def airline_params
+          params.require(:airline).permit(:name, :image_url)
+        end
+
+        def options
+          @options ||= { include: %i[reviews] }
+        end
+
+        def to_json (data)
+          AirlineSerializer.new(data, options).serialized_json
+        end
     end
   end
 end

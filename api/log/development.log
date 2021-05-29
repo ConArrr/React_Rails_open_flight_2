@@ -1,0 +1,910 @@
+  [1m[35m (1.6ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mAirline Load (0.4ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateAirlines (20210526153732)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "airlines" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "image_url" varchar, "slug" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mprimary::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20210526153732"]]
+  [1m[35m (1.0ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateReviews (20210526153741)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "reviews" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "description" varchar, "score" integer, "airline_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_3a3d57cfdb"
+FOREIGN KEY ("airline_id")
+  REFERENCES "airlines" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_reviews_on_airline_id" ON "reviews" ("airline_id")[0m
+  [1m[36mprimary::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20210526153741"]]
+  [1m[35m (1.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2021-05-26 15:38:36.584268"], ["updated_at", "2021-05-26 15:38:36.584268"]]
+  [1m[35m (1.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mAirline Load (0.3ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mReview Load (0.4ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" LIMIT ?[0m  [["LIMIT", 11]]
+Started GET "/api/v1/airlines" for ::1 at 2021-05-27 00:46:32 +0900
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Api::V1::AirlinesController#index as */*
+Completed 204 No Content in 0ms (ActiveRecord: 0.0ms | Allocations: 104)
+
+
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAirline Create (1.2ms)[0m  [1m[32mINSERT INTO "airlines" ("name", "image_url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "United Airlines"], ["image_url", "https://open-flights.s3.amazonaws.com/United-Airlines.png"], ["created_at", "2021-05-26 15:48:53.152246"], ["updated_at", "2021-05-26 15:48:53.152246"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAirline Create (0.3ms)[0m  [1m[32mINSERT INTO "airlines" ("name", "image_url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "Southwest"], ["image_url", "https://open-flights.s3.amazonaws.com/Southwest-Airlines.png"], ["created_at", "2021-05-26 15:48:53.157281"], ["updated_at", "2021-05-26 15:48:53.157281"]]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAirline Create (0.3ms)[0m  [1m[32mINSERT INTO "airlines" ("name", "image_url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "Delta"], ["image_url", "https://open-flights.s3.amazonaws.com/Delta.png"], ["created_at", "2021-05-26 15:48:53.161515"], ["updated_at", "2021-05-26 15:48:53.161515"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAirline Create (0.3ms)[0m  [1m[32mINSERT INTO "airlines" ("name", "image_url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "Alaska Airlines"], ["image_url", "https://open-flights.s3.amazonaws.com/Alaska-Airlines.png"], ["created_at", "2021-05-26 15:48:53.165037"], ["updated_at", "2021-05-26 15:48:53.165037"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAirline Create (0.5ms)[0m  [1m[32mINSERT INTO "airlines" ("name", "image_url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "JetBlue"], ["image_url", "https://open-flights.s3.amazonaws.com/JetBlue.png"], ["created_at", "2021-05-26 15:48:53.171876"], ["updated_at", "2021-05-26 15:48:53.171876"]]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAirline Create (0.3ms)[0m  [1m[32mINSERT INTO "airlines" ("name", "image_url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "American Airlines"], ["image_url", "https://open-flights.s3.amazonaws.com/American-Airlines.png"], ["created_at", "2021-05-26 15:48:53.177391"], ["updated_at", "2021-05-26 15:48:53.177391"]]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mReview Create (1.2ms)[0m  [1m[32mINSERT INTO "reviews" ("title", "description", "score", "airline_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Greate airline"], ["description", "I had a lovely time."], ["score", 5], ["airline_id", 1], ["created_at", "2021-05-26 15:48:53.197408"], ["updated_at", "2021-05-26 15:48:53.197408"]]
+  [1m[35m (1.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mReview Create (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("title", "description", "score", "airline_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Bad airline"], ["description", "I had a bad time."], ["score", 1], ["airline_id", 1], ["created_at", "2021-05-26 15:48:53.202487"], ["updated_at", "2021-05-26 15:48:53.202487"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mAirline Load (0.3ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mReview Load (0.4ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" LIMIT ?[0m  [["LIMIT", 11]]
+Started GET "/api/v1/airlines" for ::1 at 2021-05-27 00:49:12 +0900
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Api::V1::AirlinesController#index as */*
+Completed 204 No Content in 0ms (ActiveRecord: 0.0ms | Allocations: 104)
+
+
+Started GET "/api/v1/airlines/1" for ::1 at 2021-05-27 00:49:26 +0900
+Processing by Api::V1::AirlinesController#show as */*
+  Parameters: {"slug"=>"1"}
+Completed 500 Internal Server Error in 46ms (ActiveRecord: 0.0ms | Allocations: 30258)
+
+
+  
+NoMethodError (undefined method `set_airline' for #<Api::V1::AirlinesController:0x00007f80d0c40f38>):
+  
+activesupport (6.0.3.7) lib/active_support/callbacks.rb:428:in `block in make_lambda'
+activesupport (6.0.3.7) lib/active_support/callbacks.rb:181:in `block (2 levels) in halting_and_conditional'
+actionpack (6.0.3.7) lib/abstract_controller/callbacks.rb:34:in `block (2 levels) in <module:Callbacks>'
+activesupport (6.0.3.7) lib/active_support/callbacks.rb:182:in `block in halting_and_conditional'
+activesupport (6.0.3.7) lib/active_support/callbacks.rb:513:in `block in invoke_before'
+activesupport (6.0.3.7) lib/active_support/callbacks.rb:513:in `each'
+activesupport (6.0.3.7) lib/active_support/callbacks.rb:513:in `invoke_before'
+activesupport (6.0.3.7) lib/active_support/callbacks.rb:134:in `run_callbacks'
+actionpack (6.0.3.7) lib/abstract_controller/callbacks.rb:41:in `process_action'
+actionpack (6.0.3.7) lib/action_controller/metal/rescue.rb:22:in `process_action'
+actionpack (6.0.3.7) lib/action_controller/metal/instrumentation.rb:33:in `block in process_action'
+activesupport (6.0.3.7) lib/active_support/notifications.rb:180:in `block in instrument'
+activesupport (6.0.3.7) lib/active_support/notifications/instrumenter.rb:24:in `instrument'
+activesupport (6.0.3.7) lib/active_support/notifications.rb:180:in `instrument'
+actionpack (6.0.3.7) lib/action_controller/metal/instrumentation.rb:32:in `process_action'
+actionpack (6.0.3.7) lib/action_controller/metal/params_wrapper.rb:245:in `process_action'
+activerecord (6.0.3.7) lib/active_record/railties/controller_runtime.rb:27:in `process_action'
+actionpack (6.0.3.7) lib/abstract_controller/base.rb:136:in `process'
+actionpack (6.0.3.7) lib/action_controller/metal.rb:190:in `dispatch'
+actionpack (6.0.3.7) lib/action_controller/metal.rb:254:in `dispatch'
+actionpack (6.0.3.7) lib/action_dispatch/routing/route_set.rb:50:in `dispatch'
+actionpack (6.0.3.7) lib/action_dispatch/routing/route_set.rb:33:in `serve'
+actionpack (6.0.3.7) lib/action_dispatch/journey/router.rb:49:in `block in serve'
+actionpack (6.0.3.7) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (6.0.3.7) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (6.0.3.7) lib/action_dispatch/routing/route_set.rb:834:in `call'
+rack (2.2.3) lib/rack/etag.rb:27:in `call'
+rack (2.2.3) lib/rack/conditional_get.rb:27:in `call'
+rack (2.2.3) lib/rack/head.rb:12:in `call'
+activerecord (6.0.3.7) lib/active_record/migration.rb:567:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.0.3.7) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/debug_exceptions.rb:32:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.7) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.7) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+railties (6.0.3.7) lib/rails/engine.rb:527:in `call'
+puma (4.3.8) lib/puma/configuration.rb:228:in `call'
+puma (4.3.8) lib/puma/server.rb:718:in `handle_request'
+puma (4.3.8) lib/puma/server.rb:472:in `process_client'
+puma (4.3.8) lib/puma/server.rb:328:in `block in run'
+puma (4.3.8) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/api/v1/airlines/1" for ::1 at 2021-05-27 00:50:27 +0900
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by Api::V1::AirlinesController#show as */*
+  Parameters: {"slug"=>"1"}
+Completed 404 Not Found in 3ms (ActiveRecord: 0.5ms | Allocations: 1371)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Airline without an ID):
+  
+app/controllers/api/v1/airlines_controller.rb:22:in `set_airline'
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mAirline Load (0.4ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines" LIMIT ?[0m  [["LIMIT", 11]]
+Started GET "/api/v1/airline/1" for ::1 at 2021-05-27 00:51:13 +0900
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActionController::RoutingError (No route matches [GET] "/api/v1/airline/1"):
+  
+actionpack (6.0.3.7) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.7) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.7) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+railties (6.0.3.7) lib/rails/engine.rb:527:in `call'
+puma (4.3.8) lib/puma/configuration.rb:228:in `call'
+puma (4.3.8) lib/puma/server.rb:718:in `handle_request'
+puma (4.3.8) lib/puma/server.rb:472:in `process_client'
+puma (4.3.8) lib/puma/server.rb:328:in `block in run'
+puma (4.3.8) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/api/v1/airlines/1" for ::1 at 2021-05-27 00:51:17 +0900
+Processing by Api::V1::AirlinesController#show as */*
+  Parameters: {"slug"=>"1"}
+Completed 404 Not Found in 3ms (ActiveRecord: 0.5ms | Allocations: 1313)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Airline without an ID):
+  
+app/controllers/api/v1/airlines_controller.rb:22:in `set_airline'
+Started GET "/api/v1/airlines" for ::1 at 2021-05-27 00:51:24 +0900
+Processing by Api::V1::AirlinesController#index as */*
+Completed 204 No Content in 0ms (ActiveRecord: 0.0ms | Allocations: 76)
+
+
+Started GET "/api/v1/airlines/1" for ::1 at 2021-05-27 00:51:30 +0900
+Processing by Api::V1::AirlinesController#show as */*
+  Parameters: {"slug"=>"1"}
+Completed 404 Not Found in 0ms (ActiveRecord: 0.0ms | Allocations: 131)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Airline without an ID):
+  
+app/controllers/api/v1/airlines_controller.rb:22:in `set_airline'
+Started GET "/api/v1/airlines" for ::1 at 2021-05-27 00:53:32 +0900
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by Api::V1::AirlinesController#index as */*
+  [1m[36mAirline Load (0.2ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines"[0m
+  ↳ app/controllers/api/v1/airlines_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.2ms | ActiveRecord: 0.6ms | Allocations: 5638)
+
+
+Started GET "/api/v1/airlines/1" for ::1 at 2021-05-27 00:54:33 +0900
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by Api::V1::AirlinesController#show as */*
+  Parameters: {"slug"=>"1"}
+Completed 404 Not Found in 2ms (ActiveRecord: 0.5ms | Allocations: 1065)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Airline without an ID):
+  
+app/controllers/api/v1/airlines_controller.rb:33:in `set_airline'
+Started GET "/api/v1/airline/1" for ::1 at 2021-05-27 00:54:37 +0900
+  
+ActionController::RoutingError (No route matches [GET] "/api/v1/airline/1"):
+  
+actionpack (6.0.3.7) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.7) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.7) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+railties (6.0.3.7) lib/rails/engine.rb:527:in `call'
+puma (4.3.8) lib/puma/configuration.rb:228:in `call'
+puma (4.3.8) lib/puma/server.rb:718:in `handle_request'
+puma (4.3.8) lib/puma/server.rb:472:in `process_client'
+puma (4.3.8) lib/puma/server.rb:328:in `block in run'
+puma (4.3.8) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/api/v1/airlines" for ::1 at 2021-05-27 00:55:30 +0900
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Api::V1::AirlinesController#index as */*
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.0ms | Allocations: 2190)
+
+
+  
+NameError (uninitialized constant Api::V1::AirlinesController::SUCCESS
+Did you mean?  Api::V1::AirlinesController::SUCEESS):
+  
+app/controllers/api/v1/airlines_controller.rb:11:in `index'
+Started GET "/api/v1/airlines" for ::1 at 2021-05-27 00:55:32 +0900
+Processing by Api::V1::AirlinesController#index as */*
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.0ms | Allocations: 1804)
+
+
+  
+NameError (uninitialized constant Api::V1::AirlinesController::SUCCESS
+Did you mean?  Api::V1::AirlinesController::SUCEESS):
+  
+app/controllers/api/v1/airlines_controller.rb:11:in `index'
+Started GET "/api/v1/airlines" for ::1 at 2021-05-27 00:55:34 +0900
+Processing by Api::V1::AirlinesController#index as */*
+Completed 500 Internal Server Error in 6ms (ActiveRecord: 0.0ms | Allocations: 1804)
+
+
+  
+NameError (uninitialized constant Api::V1::AirlinesController::SUCCESS
+Did you mean?  Api::V1::AirlinesController::SUCEESS):
+  
+app/controllers/api/v1/airlines_controller.rb:11:in `index'
+Started GET "/api/v1/airlines" for ::1 at 2021-05-27 00:55:50 +0900
+Processing by Api::V1::AirlinesController#index as */*
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.0ms | Allocations: 1804)
+
+
+  
+NameError (uninitialized constant Api::V1::AirlinesController::SUCCESS
+Did you mean?  Api::V1::AirlinesController::SUCEESS):
+  
+app/controllers/api/v1/airlines_controller.rb:11:in `index'
+Started GET "/api/v1/airlines" for ::1 at 2021-05-27 00:55:51 +0900
+Processing by Api::V1::AirlinesController#index as */*
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.0ms | Allocations: 1804)
+
+
+  
+NameError (uninitialized constant Api::V1::AirlinesController::SUCCESS
+Did you mean?  Api::V1::AirlinesController::SUCEESS):
+  
+app/controllers/api/v1/airlines_controller.rb:11:in `index'
+Started GET "/api/v1/airlines" for ::1 at 2021-05-27 00:56:10 +0900
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Api::V1::AirlinesController#index as */*
+Completed 500 Internal Server Error in 4ms (ActiveRecord: 0.0ms | Allocations: 2190)
+
+
+  
+NameError (uninitialized constant Api::V1::AirlinesController::SUCCESS
+Did you mean?  Api::V1::AirlinesController::SUCEESS):
+  
+app/controllers/api/v1/airlines_controller.rb:11:in `index'
+Started GET "/api/v1/airlines" for ::1 at 2021-05-27 00:57:29 +0900
+Processing by Api::V1::AirlinesController#index as */*
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.0ms | Allocations: 1804)
+
+
+  
+NameError (uninitialized constant Api::V1::AirlinesController::SUCCESS
+Did you mean?  Api::V1::AirlinesController::SUCEESS):
+  
+app/controllers/api/v1/airlines_controller.rb:11:in `index'
+Started GET "/api/v1/airlines" for ::1 at 2021-05-27 00:57:53 +0900
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by Api::V1::AirlinesController#index as */*
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.0ms | Allocations: 2147)
+
+
+  
+NameError (uninitialized constant Api::V1::AirlinesController::SUCCESS
+Did you mean?  Api::V1::AirlinesController::SUCEESS):
+  
+app/controllers/api/v1/airlines_controller.rb:11:in `index'
+Started GET "/api/v1/airlines" for ::1 at 2021-05-27 00:57:53 +0900
+Processing by Api::V1::AirlinesController#index as */*
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.0ms | Allocations: 1804)
+
+
+  
+NameError (uninitialized constant Api::V1::AirlinesController::SUCCESS
+Did you mean?  Api::V1::AirlinesController::SUCEESS):
+  
+app/controllers/api/v1/airlines_controller.rb:11:in `index'
+Started GET "/api/v1/airlines" for ::1 at 2021-05-27 00:57:54 +0900
+Processing by Api::V1::AirlinesController#index as */*
+Completed 500 Internal Server Error in 7ms (ActiveRecord: 0.0ms | Allocations: 1796)
+
+
+  
+NameError (uninitialized constant Api::V1::AirlinesController::SUCCESS
+Did you mean?  Api::V1::AirlinesController::SUCEESS):
+  
+app/controllers/api/v1/airlines_controller.rb:11:in `index'
+Started GET "/api/v1/airlines" for ::1 at 2021-05-27 00:58:18 +0900
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by Api::V1::AirlinesController#index as */*
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.0ms | Allocations: 2147)
+
+
+  
+NameError (uninitialized constant Api::V1::AirlinesController::SUCCESS
+Did you mean?  Api::V1::AirlinesController::SUCEESS):
+  
+app/controllers/api/v1/airlines_controller.rb:11:in `index'
+Started GET "/api/v1/airlines" for ::1 at 2021-05-27 00:59:19 +0900
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by Api::V1::AirlinesController#index as */*
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.0ms | Allocations: 2220)
+
+
+  
+NameError (uninitialized class variable @@SUCCESS in Api::V1::AirlinesController
+Did you mean?  @@SUCEESS):
+  
+app/controllers/api/v1/airlines_controller.rb:11:in `index'
+Started GET "/api/v1/airlines" for ::1 at 2021-05-27 00:59:19 +0900
+Processing by Api::V1::AirlinesController#index as */*
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.0ms | Allocations: 1873)
+
+
+  
+NameError (uninitialized class variable @@SUCCESS in Api::V1::AirlinesController
+Did you mean?  @@SUCEESS):
+  
+app/controllers/api/v1/airlines_controller.rb:11:in `index'
+Started GET "/api/v1/airlines" for ::1 at 2021-05-27 00:59:57 +0900
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by Api::V1::AirlinesController#index as */*
+Completed 500 Internal Server Error in 6ms (ActiveRecord: 0.0ms | Allocations: 2138)
+
+
+  
+NameError (uninitialized constant Api::V1::AirlinesController::SUCCESS
+Did you mean?  Api::V1::AirlinesController::SUCEESS):
+  
+app/controllers/api/v1/airlines_controller.rb:11:in `index'
+Started GET "/api/v1/airlines" for ::1 at 2021-05-27 01:00:05 +0900
+Processing by Api::V1::AirlinesController#index as */*
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.0ms | Allocations: 1796)
+
+
+  
+NameError (uninitialized constant Api::V1::AirlinesController::SUCCESS
+Did you mean?  Api::V1::AirlinesController::SUCEESS):
+  
+app/controllers/api/v1/airlines_controller.rb:11:in `index'
+Started GET "/api/v1/airlines" for ::1 at 2021-05-27 01:00:52 +0900
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by Api::V1::AirlinesController#index as */*
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.0ms | Allocations: 2139)
+
+
+  
+NameError (uninitialized constant Api::V1::AirlinesController::SUCCESS
+Did you mean?  Api::V1::AirlinesController::SUCEESS):
+  
+app/controllers/api/v1/airlines_controller.rb:10:in `index'
+Started GET "/api/v1/airlines" for ::1 at 2021-05-27 01:01:02 +0900
+Processing by Api::V1::AirlinesController#index as */*
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.0ms | Allocations: 1796)
+
+
+  
+NameError (uninitialized constant Api::V1::AirlinesController::SUCCESS
+Did you mean?  Api::V1::AirlinesController::SUCEESS):
+  
+app/controllers/api/v1/airlines_controller.rb:10:in `index'
+Started GET "/api/v1/airlines" for ::1 at 2021-05-27 01:01:40 +0900
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by Api::V1::AirlinesController#index as */*
+  [1m[36mAirline Load (0.3ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines"[0m
+  ↳ app/controllers/api/v1/airlines_controller.rb:10:in `index'
+Completed 200 OK in 9ms (Views: 6.7ms | ActiveRecord: 1.0ms | Allocations: 5679)
+
+
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mAirline Load (0.1ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines"[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAirline Destroy (0.6ms)[0m  [1m[31mDELETE FROM "airlines" WHERE "airlines"."id" = ?[0m  [["id", 1]]
+  [1m[35m (0.3ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mReview Load (0.3ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews"[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mReview Destroy (0.4ms)[0m  [1m[31mDELETE FROM "reviews" WHERE "reviews"."id" = ?[0m  [["id", 1]]
+  [1m[35m (1.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mReview Destroy (0.4ms)[0m  [1m[31mDELETE FROM "reviews" WHERE "reviews"."id" = ?[0m  [["id", 2]]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mAirline Load (0.2ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines"[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAirline Destroy (0.3ms)[0m  [1m[31mDELETE FROM "airlines" WHERE "airlines"."id" = ?[0m  [["id", 1]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAirline Destroy (0.3ms)[0m  [1m[31mDELETE FROM "airlines" WHERE "airlines"."id" = ?[0m  [["id", 2]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAirline Destroy (0.5ms)[0m  [1m[31mDELETE FROM "airlines" WHERE "airlines"."id" = ?[0m  [["id", 3]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAirline Destroy (0.4ms)[0m  [1m[31mDELETE FROM "airlines" WHERE "airlines"."id" = ?[0m  [["id", 4]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAirline Destroy (0.4ms)[0m  [1m[31mDELETE FROM "airlines" WHERE "airlines"."id" = ?[0m  [["id", 5]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAirline Destroy (0.3ms)[0m  [1m[31mDELETE FROM "airlines" WHERE "airlines"."id" = ?[0m  [["id", 6]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAirline Create (0.5ms)[0m  [1m[32mINSERT INTO "airlines" ("name", "image_url", "slug", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["name", "United Airlines"], ["image_url", "https://open-flights.s3.amazonaws.com/United-Airlines.png"], ["slug", "united-airlines"], ["created_at", "2021-05-26 16:04:20.690283"], ["updated_at", "2021-05-26 16:04:20.690283"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAirline Create (0.4ms)[0m  [1m[32mINSERT INTO "airlines" ("name", "image_url", "slug", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["name", "Southwest"], ["image_url", "https://open-flights.s3.amazonaws.com/Southwest-Airlines.png"], ["slug", "southwest"], ["created_at", "2021-05-26 16:04:20.711839"], ["updated_at", "2021-05-26 16:04:20.711839"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAirline Create (0.3ms)[0m  [1m[32mINSERT INTO "airlines" ("name", "image_url", "slug", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["name", "Delta"], ["image_url", "https://open-flights.s3.amazonaws.com/Delta.png"], ["slug", "delta"], ["created_at", "2021-05-26 16:04:20.721732"], ["updated_at", "2021-05-26 16:04:20.721732"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAirline Create (0.3ms)[0m  [1m[32mINSERT INTO "airlines" ("name", "image_url", "slug", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["name", "Alaska Airlines"], ["image_url", "https://open-flights.s3.amazonaws.com/Alaska-Airlines.png"], ["slug", "alaska-airlines"], ["created_at", "2021-05-26 16:04:20.729738"], ["updated_at", "2021-05-26 16:04:20.729738"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAirline Create (0.3ms)[0m  [1m[32mINSERT INTO "airlines" ("name", "image_url", "slug", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["name", "JetBlue"], ["image_url", "https://open-flights.s3.amazonaws.com/JetBlue.png"], ["slug", "jetblue"], ["created_at", "2021-05-26 16:04:20.734579"], ["updated_at", "2021-05-26 16:04:20.734579"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAirline Create (0.3ms)[0m  [1m[32mINSERT INTO "airlines" ("name", "image_url", "slug", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["name", "American Airlines"], ["image_url", "https://open-flights.s3.amazonaws.com/American-Airlines.png"], ["slug", "american-airlines"], ["created_at", "2021-05-26 16:04:20.738243"], ["updated_at", "2021-05-26 16:04:20.738243"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mReview Create (0.4ms)[0m  [1m[32mINSERT INTO "reviews" ("title", "description", "score", "airline_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Greate airline"], ["description", "I had a lovely time."], ["score", 5], ["airline_id", 7], ["created_at", "2021-05-26 16:04:20.760166"], ["updated_at", "2021-05-26 16:04:20.760166"]]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mReview Create (0.3ms)[0m  [1m[32mINSERT INTO "reviews" ("title", "description", "score", "airline_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Bad airline"], ["description", "I had a bad time."], ["score", 1], ["airline_id", 7], ["created_at", "2021-05-26 16:04:20.769629"], ["updated_at", "2021-05-26 16:04:20.769629"]]
+  [1m[35m (1.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mAirline Load (0.3ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines" LIMIT ?[0m  [["LIMIT", 11]]
+Started GET "/api/v1/airlines" for ::1 at 2021-05-27 01:05:43 +0900
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Api::V1::AirlinesController#index as */*
+  [1m[36mAirline Load (0.2ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines"[0m
+  ↳ app/controllers/api/v1/airlines_controller.rb:10:in `index'
+Completed 200 OK in 13ms (Views: 8.3ms | ActiveRecord: 0.7ms | Allocations: 6432)
+
+
+Started GET "/api/v1/airlines/united-airlines" for ::1 at 2021-05-27 01:05:57 +0900
+Processing by Api::V1::AirlinesController#show as */*
+  Parameters: {"slug"=>"united-airlines"}
+Completed 404 Not Found in 1ms (ActiveRecord: 0.0ms | Allocations: 381)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Airline without an ID):
+  
+app/controllers/api/v1/airlines_controller.rb:27:in `set_airline'
+Started GET "/api/v1/airlines/united-airlines" for ::1 at 2021-05-27 01:06:19 +0900
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by Api::V1::AirlinesController#show as */*
+  Parameters: {"slug"=>"united-airlines"}
+  [1m[36mAirline Load (0.2ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines" WHERE "airlines"."id" = ? LIMIT ?[0m  [["id", nil], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/airlines_controller.rb:27:in `set_airline'
+Completed 404 Not Found in 4ms (ActiveRecord: 0.6ms | Allocations: 2198)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Airline with 'id'=united-airlines):
+  
+app/controllers/api/v1/airlines_controller.rb:27:in `set_airline'
+Started GET "/api/v1/airlines/united-airlines" for ::1 at 2021-05-27 01:06:20 +0900
+Processing by Api::V1::AirlinesController#show as */*
+  Parameters: {"slug"=>"united-airlines"}
+  [1m[36mAirline Load (0.1ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines" WHERE "airlines"."id" = ? LIMIT ?[0m  [["id", nil], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/airlines_controller.rb:27:in `set_airline'
+Completed 404 Not Found in 1ms (ActiveRecord: 0.1ms | Allocations: 605)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Airline with 'id'=united-airlines):
+  
+app/controllers/api/v1/airlines_controller.rb:27:in `set_airline'
+Started GET "/api/v1/airlines/united-airlines" for ::1 at 2021-05-27 01:06:21 +0900
+Processing by Api::V1::AirlinesController#show as */*
+  Parameters: {"slug"=>"united-airlines"}
+  [1m[36mAirline Load (0.1ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines" WHERE "airlines"."id" = ? LIMIT ?[0m  [["id", nil], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/airlines_controller.rb:27:in `set_airline'
+Completed 404 Not Found in 1ms (ActiveRecord: 0.1ms | Allocations: 605)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Airline with 'id'=united-airlines):
+  
+app/controllers/api/v1/airlines_controller.rb:27:in `set_airline'
+Started GET "/api/v1/airlines/united-airlines" for ::1 at 2021-05-27 01:06:22 +0900
+Processing by Api::V1::AirlinesController#show as */*
+  Parameters: {"slug"=>"united-airlines"}
+  [1m[36mAirline Load (0.1ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines" WHERE "airlines"."id" = ? LIMIT ?[0m  [["id", nil], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/airlines_controller.rb:27:in `set_airline'
+Completed 404 Not Found in 1ms (ActiveRecord: 0.1ms | Allocations: 593)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Airline with 'id'=united-airlines):
+  
+app/controllers/api/v1/airlines_controller.rb:27:in `set_airline'
+Started GET "/api/v1/airlines/united-airlines" for ::1 at 2021-05-27 01:06:22 +0900
+Processing by Api::V1::AirlinesController#show as */*
+  Parameters: {"slug"=>"united-airlines"}
+  [1m[36mAirline Load (0.1ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines" WHERE "airlines"."id" = ? LIMIT ?[0m  [["id", nil], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/airlines_controller.rb:27:in `set_airline'
+Completed 404 Not Found in 1ms (ActiveRecord: 0.1ms | Allocations: 599)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Airline with 'id'=united-airlines):
+  
+app/controllers/api/v1/airlines_controller.rb:27:in `set_airline'
+Started GET "/api/v1/airlines/united-airlines" for ::1 at 2021-05-27 01:06:23 +0900
+Processing by Api::V1::AirlinesController#show as */*
+  Parameters: {"slug"=>"united-airlines"}
+  [1m[36mAirline Load (0.1ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines" WHERE "airlines"."id" = ? LIMIT ?[0m  [["id", nil], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/airlines_controller.rb:27:in `set_airline'
+Completed 404 Not Found in 1ms (ActiveRecord: 0.1ms | Allocations: 593)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Airline with 'id'=united-airlines):
+  
+app/controllers/api/v1/airlines_controller.rb:27:in `set_airline'
+Started GET "/api/v1/airlines/united-airlines" for ::1 at 2021-05-27 01:06:35 +0900
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by Api::V1::AirlinesController#show as */*
+  Parameters: {"slug"=>"united-airlines"}
+  [1m[36mAirline Load (0.1ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines" WHERE "airlines"."id" = ? LIMIT ?[0m  [["id", nil], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/airlines_controller.rb:27:in `set_airline'
+Completed 404 Not Found in 3ms (ActiveRecord: 0.5ms | Allocations: 2144)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Airline with 'id'=united-airlines):
+  
+app/controllers/api/v1/airlines_controller.rb:27:in `set_airline'
+Started GET "/api/v1/airlines/united-airlines" for ::1 at 2021-05-27 01:06:35 +0900
+Processing by Api::V1::AirlinesController#show as */*
+  Parameters: {"slug"=>"united-airlines"}
+  [1m[36mAirline Load (0.2ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines" WHERE "airlines"."id" = ? LIMIT ?[0m  [["id", nil], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/airlines_controller.rb:27:in `set_airline'
+Completed 404 Not Found in 1ms (ActiveRecord: 0.2ms | Allocations: 592)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Airline with 'id'=united-airlines):
+  
+app/controllers/api/v1/airlines_controller.rb:27:in `set_airline'
+Started GET "/api/v1/airlines/united-airlines" for ::1 at 2021-05-27 01:06:38 +0900
+Processing by Api::V1::AirlinesController#show as */*
+  Parameters: {"slug"=>"united-airlines"}
+  [1m[36mAirline Load (0.2ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines" WHERE "airlines"."id" = ? LIMIT ?[0m  [["id", nil], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/airlines_controller.rb:27:in `set_airline'
+Completed 404 Not Found in 1ms (ActiveRecord: 0.2ms | Allocations: 593)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Airline with 'id'=united-airlines):
+  
+app/controllers/api/v1/airlines_controller.rb:27:in `set_airline'
+Started GET "/api/v1/airlines/united-airlines" for ::1 at 2021-05-27 01:06:49 +0900
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Api::V1::AirlinesController#show as */*
+  Parameters: {"slug"=>"united-airlines"}
+  [1m[36mAirline Load (0.1ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines" WHERE "airlines"."id" = ? LIMIT ?[0m  [["id", nil], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/airlines_controller.rb:27:in `set_airline'
+Completed 404 Not Found in 6ms (ActiveRecord: 0.7ms | Allocations: 2697)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Airline with 'id'=united-airlines):
+  
+app/controllers/api/v1/airlines_controller.rb:27:in `set_airline'
+Started GET "/api/v1/airlines/united-airlines" for ::1 at 2021-05-27 01:07:17 +0900
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by Api::V1::AirlinesController#show as */*
+  Parameters: {"slug"=>"united-airlines"}
+  [1m[36mAirline Load (0.1ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines" WHERE "airlines"."slug" = ? LIMIT ?[0m  [["slug", "united-airlines"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/airlines_controller.rb:27:in `set_airline'
+Completed 200 OK in 8ms (Views: 0.4ms | ActiveRecord: 0.7ms | Allocations: 5349)
+
+
+Started GET "/api/v1/airlines" for ::1 at 2021-05-27 01:07:23 +0900
+Processing by Api::V1::AirlinesController#index as */*
+  [1m[36mAirline Load (0.2ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines"[0m
+  ↳ app/controllers/api/v1/airlines_controller.rb:10:in `index'
+Completed 200 OK in 2ms (Views: 1.9ms | ActiveRecord: 0.2ms | Allocations: 1744)
+
+
+Started GET "/api/v1/airlines/jetblue" for ::1 at 2021-05-27 01:07:33 +0900
+Processing by Api::V1::AirlinesController#show as */*
+  Parameters: {"slug"=>"jetblue"}
+  [1m[36mAirline Load (0.1ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines" WHERE "airlines"."slug" = ? LIMIT ?[0m  [["slug", "jetblue"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/airlines_controller.rb:27:in `set_airline'
+Completed 200 OK in 2ms (Views: 0.4ms | ActiveRecord: 0.1ms | Allocations: 786)
+
+
+Started POST "/api/v1/reviews" for ::1 at 2021-05-27 01:14:21 +0900
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by Api::V1::ReviewsController#create as */*
+  Parameters: {"title"=>"Greate Experience!", "description"=>"had a great time!", "score"=>4, "airline_id"=>1, "review"=>{"title"=>"Greate Experience!", "description"=>"had a great time!", "score"=>4, "airline_id"=>1}}
+Completed 400 Bad Request in 0ms (ActiveRecord: 0.4ms | Allocations: 138)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: Review):
+  
+app/controllers/api/v1/reviews_controller.rb:12:in `review_params'
+app/controllers/api/v1/reviews_controller.rb:8:in `create'
+Started POST "/api/v1/reviews" for ::1 at 2021-05-27 01:15:47 +0900
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by Api::V1::ReviewsController#create as */*
+  Parameters: {"title"=>"Greate Experience!", "description"=>"had a great time!", "score"=>4, "airline_id"=>1, "review"=>{"title"=>"Greate Experience!", "description"=>"had a great time!", "score"=>4, "airline_id"=>1}}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/api/v1/reviews_controller.rb:9:in `create'
+  [1m[36mAirline Load (0.2ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines" WHERE "airlines"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/reviews_controller.rb:9:in `create'
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  ↳ app/controllers/api/v1/reviews_controller.rb:9:in `create'
+Completed 200 OK in 22ms (Views: 0.2ms | ActiveRecord: 1.7ms | Allocations: 10682)
+
+
+Started POST "/api/v1/reviews" for ::1 at 2021-05-27 01:16:49 +0900
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by Api::V1::ReviewsController#create as */*
+  Parameters: {"title"=>"Greate Experience!", "description"=>"had a great time!", "score"=>4, "airline_id"=>1, "review"=>{"title"=>"Greate Experience!", "description"=>"had a great time!", "score"=>4, "airline_id"=>1}}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/api/v1/reviews_controller.rb:9:in `create'
+  [1m[36mAirline Load (0.2ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines" WHERE "airlines"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/reviews_controller.rb:9:in `create'
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  ↳ app/controllers/api/v1/reviews_controller.rb:9:in `create'
+Completed 200 OK in 14ms (Views: 0.1ms | ActiveRecord: 1.5ms | Allocations: 7823)
+
+
+Started POST "/api/v1/reviews" for ::1 at 2021-05-27 01:17:10 +0900
+Processing by Api::V1::ReviewsController#create as */*
+  Parameters: {"title"=>"Greate Experience!", "description"=>"had a great time!", "score"=>4, "airline_id"=>7, "review"=>{"title"=>"Greate Experience!", "description"=>"had a great time!", "score"=>4, "airline_id"=>7}}
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/api/v1/reviews_controller.rb:9:in `create'
+  [1m[36mAirline Load (0.1ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines" WHERE "airlines"."id" = ? LIMIT ?[0m  [["id", 7], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/reviews_controller.rb:9:in `create'
+  [1m[36mReview Create (0.5ms)[0m  [1m[32mINSERT INTO "reviews" ("title", "description", "score", "airline_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Greate Experience!"], ["description", "had a great time!"], ["score", 4], ["airline_id", 7], ["created_at", "2021-05-26 16:17:10.889444"], ["updated_at", "2021-05-26 16:17:10.889444"]]
+  ↳ app/controllers/api/v1/reviews_controller.rb:9:in `create'
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/api/v1/reviews_controller.rb:9:in `create'
+Completed 200 OK in 10ms (Views: 0.3ms | ActiveRecord: 1.6ms | Allocations: 6491)
+
+
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mAirline Load (0.8ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mReview Load (1.0ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" LIMIT ?[0m  [["LIMIT", 11]]
+Started GET "/api/v1/airlines" for ::1 at 2021-05-29 13:10:09 +0900
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Api::V1::AirlinesController#index as */*
+  [1m[36mAirline Load (0.2ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines"[0m
+  ↳ app/controllers/api/v1/airlines_controller.rb:10:in `index'
+Completed 200 OK in 19ms (Views: 15.8ms | ActiveRecord: 1.2ms | Allocations: 6432)
+
+
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mAirline Load (0.2ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mAirline Load (0.4ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines"[0m
+  [1m[35m (0.3ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAirline Destroy (2.3ms)[0m  [1m[31mDELETE FROM "airlines" WHERE "airlines"."id" = ?[0m  [["id", 7]]
+  [1m[35m (0.7ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mReview Load (0.4ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews"[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mReview Destroy (0.5ms)[0m  [1m[31mDELETE FROM "reviews" WHERE "reviews"."id" = ?[0m  [["id", 3]]
+  [1m[35m (1.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mReview Destroy (0.4ms)[0m  [1m[31mDELETE FROM "reviews" WHERE "reviews"."id" = ?[0m  [["id", 4]]
+  [1m[35m (1.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mReview Destroy (0.3ms)[0m  [1m[31mDELETE FROM "reviews" WHERE "reviews"."id" = ?[0m  [["id", 5]]
+  [1m[35m (1.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mAirline Load (0.3ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines"[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAirline Destroy (0.7ms)[0m  [1m[31mDELETE FROM "airlines" WHERE "airlines"."id" = ?[0m  [["id", 7]]
+  [1m[35m (2.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAirline Destroy (0.6ms)[0m  [1m[31mDELETE FROM "airlines" WHERE "airlines"."id" = ?[0m  [["id", 8]]
+  [1m[35m (2.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAirline Destroy (0.8ms)[0m  [1m[31mDELETE FROM "airlines" WHERE "airlines"."id" = ?[0m  [["id", 9]]
+  [1m[35m (1.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAirline Destroy (0.4ms)[0m  [1m[31mDELETE FROM "airlines" WHERE "airlines"."id" = ?[0m  [["id", 10]]
+  [1m[35m (1.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAirline Destroy (0.4ms)[0m  [1m[31mDELETE FROM "airlines" WHERE "airlines"."id" = ?[0m  [["id", 11]]
+  [1m[35m (1.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAirline Destroy (0.4ms)[0m  [1m[31mDELETE FROM "airlines" WHERE "airlines"."id" = ?[0m  [["id", 12]]
+  [1m[35m (2.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mAirline Load (0.3ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mReview Load (0.4ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAirline Create (0.6ms)[0m  [1m[32mINSERT INTO "airlines" ("name", "image_url", "slug", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["name", "United Airlines"], ["image_url", "https://open-flights.s3.amazonaws.com/United-Airlines.png"], ["slug", "united-airlines"], ["created_at", "2021-05-29 04:11:28.657174"], ["updated_at", "2021-05-29 04:11:28.657174"]]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAirline Create (0.3ms)[0m  [1m[32mINSERT INTO "airlines" ("name", "image_url", "slug", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["name", "Southwest"], ["image_url", "https://open-flights.s3.amazonaws.com/Southwest-Airlines.png"], ["slug", "southwest"], ["created_at", "2021-05-29 04:11:28.678631"], ["updated_at", "2021-05-29 04:11:28.678631"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAirline Create (0.2ms)[0m  [1m[32mINSERT INTO "airlines" ("name", "image_url", "slug", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["name", "Delta"], ["image_url", "https://open-flights.s3.amazonaws.com/Delta.png"], ["slug", "delta"], ["created_at", "2021-05-29 04:11:28.682625"], ["updated_at", "2021-05-29 04:11:28.682625"]]
+  [1m[35m (1.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAirline Create (0.3ms)[0m  [1m[32mINSERT INTO "airlines" ("name", "image_url", "slug", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["name", "Alaska Airlines"], ["image_url", "https://open-flights.s3.amazonaws.com/Alaska-Airlines.png"], ["slug", "alaska-airlines"], ["created_at", "2021-05-29 04:11:28.686787"], ["updated_at", "2021-05-29 04:11:28.686787"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAirline Create (0.2ms)[0m  [1m[32mINSERT INTO "airlines" ("name", "image_url", "slug", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["name", "JetBlue"], ["image_url", "https://open-flights.s3.amazonaws.com/JetBlue.png"], ["slug", "jetblue"], ["created_at", "2021-05-29 04:11:28.690402"], ["updated_at", "2021-05-29 04:11:28.690402"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAirline Create (0.3ms)[0m  [1m[32mINSERT INTO "airlines" ("name", "image_url", "slug", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["name", "American Airlines"], ["image_url", "https://open-flights.s3.amazonaws.com/American-Airlines.png"], ["slug", "american-airlines"], ["created_at", "2021-05-29 04:11:28.694060"], ["updated_at", "2021-05-29 04:11:28.694060"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mReview Create (0.3ms)[0m  [1m[32mINSERT INTO "reviews" ("title", "description", "score", "airline_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Greate airline"], ["description", "I had a lovely time."], ["score", 5], ["airline_id", 13], ["created_at", "2021-05-29 04:11:28.713913"], ["updated_at", "2021-05-29 04:11:28.713913"]]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mReview Create (0.3ms)[0m  [1m[32mINSERT INTO "reviews" ("title", "description", "score", "airline_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Bad airline"], ["description", "I had a bad time."], ["score", 1], ["airline_id", 13], ["created_at", "2021-05-29 04:11:28.717737"], ["updated_at", "2021-05-29 04:11:28.717737"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mAirline Load (0.1ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateAirlines (20210526153732)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "airlines" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "image_url" varchar, "slug" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mprimary::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20210526153732"]]
+  [1m[35m (1.0ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateReviews (20210526153741)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "reviews" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "description" varchar, "score" integer, "airline_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_3a3d57cfdb"
+FOREIGN KEY ("airline_id")
+  REFERENCES "airlines" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_reviews_on_airline_id" ON "reviews" ("airline_id")[0m
+  [1m[36mprimary::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20210526153741"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2021-05-29 04:12:30.853414"], ["updated_at", "2021-05-29 04:12:30.853414"]]
+  [1m[35m (1.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAirline Create (0.4ms)[0m  [1m[32mINSERT INTO "airlines" ("name", "image_url", "slug", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["name", "United Airlines"], ["image_url", "https://open-flights.s3.amazonaws.com/United-Airlines.png"], ["slug", "united-airlines"], ["created_at", "2021-05-29 04:12:38.279605"], ["updated_at", "2021-05-29 04:12:38.279605"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAirline Create (0.3ms)[0m  [1m[32mINSERT INTO "airlines" ("name", "image_url", "slug", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["name", "Southwest"], ["image_url", "https://open-flights.s3.amazonaws.com/Southwest-Airlines.png"], ["slug", "southwest"], ["created_at", "2021-05-29 04:12:38.293372"], ["updated_at", "2021-05-29 04:12:38.293372"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAirline Create (0.3ms)[0m  [1m[32mINSERT INTO "airlines" ("name", "image_url", "slug", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["name", "Delta"], ["image_url", "https://open-flights.s3.amazonaws.com/Delta.png"], ["slug", "delta"], ["created_at", "2021-05-29 04:12:38.297973"], ["updated_at", "2021-05-29 04:12:38.297973"]]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAirline Create (0.4ms)[0m  [1m[32mINSERT INTO "airlines" ("name", "image_url", "slug", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["name", "Alaska Airlines"], ["image_url", "https://open-flights.s3.amazonaws.com/Alaska-Airlines.png"], ["slug", "alaska-airlines"], ["created_at", "2021-05-29 04:12:38.302104"], ["updated_at", "2021-05-29 04:12:38.302104"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAirline Create (0.3ms)[0m  [1m[32mINSERT INTO "airlines" ("name", "image_url", "slug", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["name", "JetBlue"], ["image_url", "https://open-flights.s3.amazonaws.com/JetBlue.png"], ["slug", "jetblue"], ["created_at", "2021-05-29 04:12:38.309267"], ["updated_at", "2021-05-29 04:12:38.309267"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAirline Create (0.2ms)[0m  [1m[32mINSERT INTO "airlines" ("name", "image_url", "slug", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["name", "American Airlines"], ["image_url", "https://open-flights.s3.amazonaws.com/American-Airlines.png"], ["slug", "american-airlines"], ["created_at", "2021-05-29 04:12:38.313623"], ["updated_at", "2021-05-29 04:12:38.313623"]]
+  [1m[35m (1.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mReview Create (0.3ms)[0m  [1m[32mINSERT INTO "reviews" ("title", "description", "score", "airline_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Greate airline"], ["description", "I had a lovely time."], ["score", 5], ["airline_id", 1], ["created_at", "2021-05-29 04:12:38.330917"], ["updated_at", "2021-05-29 04:12:38.330917"]]
+  [1m[35m (1.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mReview Create (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("title", "description", "score", "airline_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Bad airline"], ["description", "I had a bad time."], ["score", 1], ["airline_id", 1], ["created_at", "2021-05-29 04:12:38.334836"], ["updated_at", "2021-05-29 04:12:38.334836"]]
+  [1m[35m (1.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mAirline Load (0.2ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mReview Load (0.3ms)[0m  [1m[34mSELECT "reviews".* FROM "reviews" LIMIT ?[0m  [["LIMIT", 11]]
+Started GET "/api/v1/airlines" for ::1 at 2021-05-29 13:13:14 +0900
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Api::V1::AirlinesController#index as */*
+  [1m[36mAirline Load (0.2ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines"[0m
+  ↳ app/controllers/api/v1/airlines_controller.rb:10:in `index'
+Completed 200 OK in 9ms (Views: 6.3ms | ActiveRecord: 0.6ms | Allocations: 6431)
+
+
+Started GET "/api/v1/airlines" for ::1 at 2021-05-29 13:13:14 +0900
+Processing by Api::V1::AirlinesController#index as */*
+  [1m[36mAirline Load (0.1ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines"[0m
+  ↳ app/controllers/api/v1/airlines_controller.rb:10:in `index'
+Completed 200 OK in 3ms (Views: 2.8ms | ActiveRecord: 0.1ms | Allocations: 1723)
+
+
+Started GET "/api/v1/airlines" for ::1 at 2021-05-29 13:13:15 +0900
+Processing by Api::V1::AirlinesController#index as */*
+  [1m[36mAirline Load (0.2ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines"[0m
+  ↳ app/controllers/api/v1/airlines_controller.rb:10:in `index'
+Completed 200 OK in 3ms (Views: 2.0ms | ActiveRecord: 0.2ms | Allocations: 1723)
+
+
+Started GET "/api/v1/airlines" for ::1 at 2021-05-29 13:13:16 +0900
+Processing by Api::V1::AirlinesController#index as */*
+  [1m[36mAirline Load (0.1ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines"[0m
+  ↳ app/controllers/api/v1/airlines_controller.rb:10:in `index'
+Completed 200 OK in 2ms (Views: 2.0ms | ActiveRecord: 0.1ms | Allocations: 1723)
+
+
+Started GET "/api/v1/airlines" for ::1 at 2021-05-29 13:13:16 +0900
+Processing by Api::V1::AirlinesController#index as */*
+  [1m[36mAirline Load (0.1ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines"[0m
+  ↳ app/controllers/api/v1/airlines_controller.rb:10:in `index'
+Completed 200 OK in 3ms (Views: 2.2ms | ActiveRecord: 0.1ms | Allocations: 1723)
+
+
+Started GET "/api/v1/airlines" for ::1 at 2021-05-29 13:13:17 +0900
+Processing by Api::V1::AirlinesController#index as */*
+  [1m[36mAirline Load (0.1ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines"[0m
+  ↳ app/controllers/api/v1/airlines_controller.rb:10:in `index'
+Completed 200 OK in 3ms (Views: 2.3ms | ActiveRecord: 0.1ms | Allocations: 1707)
+
+
+Started GET "/api/v1/airlines/united-airlines" for ::1 at 2021-05-29 13:13:23 +0900
+Processing by Api::V1::AirlinesController#show as */*
+  Parameters: {"slug"=>"united-airlines"}
+  [1m[36mAirline Load (0.3ms)[0m  [1m[34mSELECT "airlines".* FROM "airlines" WHERE "airlines"."slug" = ? LIMIT ?[0m  [["slug", "united-airlines"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/airlines_controller.rb:43:in `set_airline'
+Completed 200 OK in 3ms (Views: 0.4ms | ActiveRecord: 0.3ms | Allocations: 1176)
+
+

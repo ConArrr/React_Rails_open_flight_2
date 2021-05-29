@@ -44,13 +44,21 @@ const LinkWrapper = styled.div`
   height: 50px;
 
   a {
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.25);
+    background-color: #4CAF50;
     color: #fff;
-    background: #000;
-    border-radius: 4px;
-    padding: 10px 50px;
-    border: 1pz solid #000;
-    width: 100%;
+    display: inline-block;
+    padding: 0.6em 2em;
+    margin: 0 0 1em;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
     text-decoration: none;
+  }
+
+  a:hover {
+    cursor: pointer;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.25);
+    transform: translateY(-0.1875em);
   }
 `
 

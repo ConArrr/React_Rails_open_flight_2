@@ -1,7 +1,8 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
+import Airline from './components/Airline/Airline'
 import Airlines from './components/Home/Airlines'
-import Airline from './components/Home/Airline'
+
 
 const App = () => {
   return (
